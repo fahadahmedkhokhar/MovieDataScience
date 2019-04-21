@@ -131,8 +131,9 @@ private static ResultSet query(Connection con, String query) throws SQLException
 	}
         private static void query3(Connection con, String movie) throws SQLException {
 		ResultSet rs = query(con,
-				"select * from parsed where original_title like '"+movie+"' "
-                                        + "OR vote_average = (select vote_average from parsed where original_title like '"+movie+"')"
+				"select * from parsed where original_title ='"+movie+"' "
+                                        + "OR id IN (Select movie_id from genres) "
+                                        + "AND id IN (Select movie_id from keywords) Limit 5;"
 		);
 		System.out.println(String.format( "Movie Name"));
 		System.out.println(String.format( "---------"));
